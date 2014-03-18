@@ -35,11 +35,9 @@ $english_array =  array(
 		11	=> 'Aethertech',
 	),
 	'races' => array(
-		'Elyoss',
-		'Asmodier'
-	),
-	'factions' => array(
-		'Member',
+		0	=> 'Unknown',
+		1	=> 'Elyoss',
+		2	=> 'Asmodier'
 	),
 	'lang' => array(
 		'aion'						=> 'Aion',

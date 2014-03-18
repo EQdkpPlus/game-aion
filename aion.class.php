@@ -22,20 +22,81 @@ if(!defined('EQDKP_INC')){
 
 if(!class_exists('aion')) {
 	class aion extends game_generic {
+		public $version			= '4.5';
 		protected $this_game	= 'aion';
-		protected $types		= array('classes', 'races', 'factions', 'filters');
+		protected $types		= array('classes', 'races', 'filters');
 		protected $classes		= array();
 		protected $races		= array();
 		protected $factions		= array();
 		protected $filters		= array();
 		public $langs			= array('english', 'german');
-		public $icons			= array('classes', 'classes_big', 'races', 'events');
+
+		protected $class_dependencies = array(
+			array(
+				'name'		=> 'race',
+				'type'		=> 'races',
+				'admin'		=> false,
+				'decorate'	=> true,
+				'parent'	=> false
+			),
+			array(
+				'name'		=> 'class',
+				'type'		=> 'classes',
+				'admin'		=> false,
+				'decorate'	=> true,
+				'primary'	=> true,
+				'colorize'	=> true,
+				'roster'	=> true,
+				'recruitment' => true,
+				'parent'	=> array(
+					'race' => array(
+						0 	=> 'all',			// Unknown
+						1 	=> 'all',			// Gnome
+						2 	=> 'all',			// Human
+					),
+				),
+			),
+		);
+		
+		protected $class_colors = array(
+			1	=> '#80FF00',
+			2	=> '#FFFFFF',
+			3	=> '#FFFFFF',
+			4	=> '#4080FF',
+			5	=> '#80FF00',
+			6	=> '#7d5ebc',
+			7	=> '#7d5ebc',
+			8	=> '#4080FF',
+			9	=> '#ff3300',
+			10	=> '#cc3399',
+			11	=> '#ff3300',
+		);
 
 		protected $glang		= array();
 		protected $lang_file	= array();
 		protected $path			= false;
 		public $lang			= false;
-		public $version			= '4.5';
+
+		public function profilefields(){
+			$xml_fields = array(
+				'gender'	=> array(
+					'type'			=> 'dropdown',
+					'category'		=> 'character',
+					'lang'			=> 'uc_gender',
+					'options'		=> array('Male' => 'uc_male', 'Female' => 'uc_female'),
+					'undeletable'	=> true,
+					'tolang'		=> true
+				),
+				'guild'	=> array(
+					'type'			=> 'text',
+					'category'		=> 'character',
+					'lang'			=> 'uc_guild',
+					'size'			=> 40,
+					'undeletable'	=> true,
+				),
+			);
+			return $xml_fields;
+		}
 
 		/**
 		* Initialises filters
@@ -63,20 +124,6 @@ if(!class_exists('aion')) {
 		}
 
 		public function get_OnChangeInfos($install=false){
-			//classcolors
-			$info['class_color'] = array(
-				1	=> '#80FF00',
-				2	=> '#FFFFFF',
-				3	=> '#FFFFFF',
-				4	=> '#4080FF',
-				5	=> '#80FF00',
-				6	=> '#7d5ebc',
-				7	=> '#7d5ebc',
-				8	=> '#4080FF',
-				9	=> '#ff3300',
-				10	=> '#cc3399',
-				11	=> '#ff3300',
-			);
 
 			/*
 			//Do this SQL Query NOT if the Eqdkp is installed -> only @ the first install
