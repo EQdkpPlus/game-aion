@@ -4,32 +4,32 @@
  * License:		Creative Commons - Attribution-Noncommercial-Share Alike 3.0 Unported
  * Link:		http://creativecommons.org/licenses/by-nc-sa/3.0/
  * -----------------------------------------------------------------------
- * Began:		2009
  * Date:		$Date$
  * -----------------------------------------------------------------------
  * @author		$Author$
- * @copyright	2006-2011 EQdkp-Plus Developer Team
+ * @copyright	2006-2014 EQdkp-Plus Developer Team
  * @link		http://eqdkp-plus.com
  * @package		eqdkp-plus
  * @version		$Rev$
- * 
+ *
  * $Id$
  */
 
-if(!defined('EQDKP_INC')){
+if ( !defined('EQDKP_INC') ){
 	header('HTTP/1.0 404 Not Found');exit;
 }
 
 if(!class_exists('aion')) {
 	class aion extends game_generic {
-		public $version			= '4.5';
-		protected $this_game	= 'aion';
-		protected $types		= array('classes', 'races', 'filters');
-		protected $classes		= array();
-		protected $races		= array();
-		protected $factions		= array();
-		protected $filters		= array();
-		public $langs			= array('english', 'german');
+		protected static $apiLevel	= 20;
+		public $version				= '4.5';
+		protected $this_game		= 'aion';
+		protected $types			= array('classes', 'races', 'filters');
+		protected $classes			= array();
+		protected $races			= array();
+		protected $factions			= array();
+		protected $filters			= array();
+		public $langs				= array('english', 'german');
 
 		protected $class_dependencies = array(
 			array(
@@ -57,7 +57,7 @@ if(!class_exists('aion')) {
 				),
 			),
 		);
-		
+
 		protected $class_colors = array(
 			1	=> '#80FF00',
 			2	=> '#FFFFFF',
@@ -98,11 +98,6 @@ if(!class_exists('aion')) {
 			return $xml_fields;
 		}
 
-		/**
-		* Initialises filters
-		*
-		* @param array $langs
-		*/
 		protected function load_filters($langs){
 			if(!$this->classes) {
 				$this->load_type('classes', $langs);
@@ -123,14 +118,7 @@ if(!class_exists('aion')) {
 			}
 		}
 
-		public function install($install=false){
-
-			/*
-			//Do this SQL Query NOT if the Eqdkp is installed -> only @ the first install
-			if($install){
-			}*/
-			return $info;
-		}
+		public function install($install=false){}
 	}
 }
 ?>
