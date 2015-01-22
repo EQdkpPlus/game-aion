@@ -26,7 +26,7 @@ if ( !defined('EQDKP_INC') ){
 if(!class_exists('aion')) {
 	class aion extends game_generic {
 		protected static $apiLevel	= 20;
-		public $version				= '4.6.0';
+		public $version				= '4.6.1';
 		protected $this_game		= 'aion';
 		protected $types			= array('classes', 'races', 'filters');
 		protected $classes			= array();
